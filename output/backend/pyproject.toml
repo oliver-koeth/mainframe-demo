@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "bankacct-backend"
+version = "0.1.0"
+description = "COBOL BANKACCT FastAPI backend"
+authors = ["Codex"]
+readme = "README.md"
+packages = [{ include = "app" }]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<4.0"
+fastapi = "^0.111.0"
+pydantic = "^2.6.0"
+uvicorn = "^0.29.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+httpx = "^0.27.0"
+
+[tool.pytest.ini_options]
+addopts = "-q"
+pythonpath = ["."]
+
+[build-system]
+requires = ["poetry-core>=1.8.0"]
+build-backend = "poetry.core.masonry.api"

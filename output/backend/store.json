@@ -1,0 +1,117 @@
+{
+  "accounts": [
+    {
+      "account_id": "345akeem55",
+      "account_type": "S",
+      "balance": "24.41",
+      "name": "Akeem Mohammed"
+    },
+    {
+      "account_id": "678jemi345",
+      "account_type": "S",
+      "balance": "15.92",
+      "name": "Jemi Mohammed"
+    },
+    {
+      "account_id": "4569364kim",
+      "account_type": "C",
+      "balance": "100.00",
+      "name": "John Doe"
+    },
+    {
+      "account_id": "fkgreie345",
+      "account_type": "S",
+      "balance": "577.20",
+      "name": "Jack Loom"
+    },
+    {
+      "account_id": "123",
+      "account_type": "S",
+      "balance": "100.00",
+      "name": "Sam"
+    }
+  ],
+  "schema_version": 1,
+  "transactions": [
+    {
+      "account_id": "345akeem55",
+      "amount": "20.00",
+      "date": "2025/07/27",
+      "time": "21:12:16",
+      "transaction_id": "seed-0001",
+      "transaction_type": "D"
+    },
+    {
+      "account_id": "345akeem55",
+      "amount": "0.46",
+      "date": "2025/07/27",
+      "time": "21:12:55",
+      "transaction_id": "seed-0002",
+      "transaction_type": "I"
+    },
+    {
+      "account_id": "678jemi345",
+      "amount": "0.30",
+      "date": "2025/07/27",
+      "time": "21:12:55",
+      "transaction_id": "seed-0003",
+      "transaction_type": "I"
+    },
+    {
+      "account_id": "345akeem55",
+      "amount": "0.47",
+      "date": "2025/07/27",
+      "time": "22:25:28",
+      "transaction_id": "seed-0004",
+      "transaction_type": "I"
+    },
+    {
+      "account_id": "678jemi345",
+      "amount": "0.31",
+      "date": "2025/07/27",
+      "time": "22:25:28",
+      "transaction_id": "seed-0005",
+      "transaction_type": "I"
+    },
+    {
+      "account_id": "345akeem55",
+      "amount": "0.48",
+      "date": "2025/07/27",
+      "time": "22:26:19",
+      "transaction_id": "seed-0006",
+      "transaction_type": "I"
+    },
+    {
+      "account_id": "678jemi345",
+      "amount": "0.31",
+      "date": "2025/07/27",
+      "time": "22:26:19",
+      "transaction_id": "seed-0007",
+      "transaction_type": "I"
+    },
+    {
+      "account_id": "fkgreie345",
+      "amount": "11.20",
+      "date": "2025/07/27",
+      "time": "22:26:19",
+      "transaction_id": "seed-0008",
+      "transaction_type": "I"
+    },
+    {
+      "account_id": "fkgreie345",
+      "amount": "5.00",
+      "date": "2025/07/27",
+      "time": "17:46:54",
+      "transaction_id": "seed-0009",
+      "transaction_type": "D"
+    },
+    {
+      "account_id": "fkgreie345",
+      "amount": "1.00",
+      "date": "2025/07/27",
+      "time": "17:47:58",
+      "transaction_id": "seed-0010",
+      "transaction_type": "D"
+    }
+  ]
+}

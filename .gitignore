@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+.venv/
+__pypackages__/
+
+# Python cache/artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+
+# Frontend build/test artifacts
+dist/
+output/frontend/.angular/
+output/frontend/node_modules/
+.cache/
+playwright-report/
+test-results/
+
+# Misc
+.DS_Store
+
+# Note: do not ignore the migration output directory (`output/`).
