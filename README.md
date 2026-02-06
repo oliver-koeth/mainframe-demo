@@ -2,6 +2,23 @@
 
 This repository demonstrates a COBOL mainframe migration to a modern web application using a Codex skill. The target architecture is a responsive Angular frontend backed by a Python (FastAPI) REST API with JSON file persistence.
 
+The legacy application is stored under `_legacy` and can be run with gnucobol. To install gnucobol run:
+
+```bash
+brew install gnucobol
+```
+
+Then the legacy application (code and data) can be built and run with
+
+```bash
+cobc -x -free BANKACCT.cob
+./BANKACCT
+```
+
+The output from Codex has been stored in `output`. If you want to run the migration itself, install the skill, create a new repo without an `output` folder, connect it to Codex and run the below migration prompt. Theresult shall look similar to:
+
+![ExampleScreen](example.png)
+
 ## Local Install of the Skill
 
 The skill lives in this repo under `skills/` and must be copied into your Codex skills directory.
@@ -11,7 +28,7 @@ The skill lives in this repo under `skills/` and must be copied into your Codex 
 By default, the skill path is:
 
 ```
-/Users/Oliver.Koeth/work/mainframe-demo/skills/cobol-flatfile-online-to-angular-python-json
+~/work/mainframe-demo/skills/cobol-flatfile-online-to-angular-python-json
 ```
 
 ### 2) Copy the skill into Codex
@@ -19,8 +36,8 @@ By default, the skill path is:
 Run the following commands:
 
 ```bash
-mkdir -p /Users/Oliver.Koeth/.codex/skills
-cp -R /Users/Oliver.Koeth/work/mainframe-demo/skills/cobol-flatfile-online-to-angular-python-json /Users/Oliver.Koeth/.codex/skills/
+mkdir -p ~/.codex/skills
+cp -R ~/work/mainframe-demo/skills/cobol-flatfile-online-to-angular-python-json ~/.codex/skills/
 ```
 
 ### 3) Restart Codex
