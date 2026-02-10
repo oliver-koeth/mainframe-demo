@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+venv/
+.venv
+env/
+
+# FastAPI
+.env
+.env.local
+*.db
+
+# Angular
+node_modules/
+dist/
+.angular/
+.next/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Lock files (optional - commit for reproducibility)
+# package-lock.json
+# poetry.lock
+
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
+coverage/
+
+# E2E tests
+test-results/
+playwright-report/
+
+# Project artifacts
+store.json
+*.log
+
+BANKACCT
+MONTHEND
