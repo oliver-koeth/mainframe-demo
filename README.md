@@ -15,6 +15,13 @@ cobc -x -free BANKACCT.cob
 ./BANKACCT
 ```
 
+Create the initial data files with:
+
+```bash
+cp CUSTOMERS.DAT.original CUSTOMERS.DAT 
+cp TRANSACTIONS.DAT.original TRANSACTIONS.DAT
+```
+
 The output from Codex has been stored in `output`. If you want to run the migration itself, install the skill, create a new repo without an `output` folder, connect it to Codex and run the below migration prompt. Theresult shall look similar to:
 
 ![ExampleScreen](example.png)
