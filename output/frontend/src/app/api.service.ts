@@ -18,6 +18,31 @@ export interface Transaction {
   time: string;
 }
 
+export interface ScheduledTask {
+  id: string;
+  display_name: string;
+  function_name: string;
+  cron: string;
+  enabled: boolean;
+  created_at: string;
+  updated_at: string;
+  last_run?: string | null;
+}
+
+export interface ScheduledTaskExecution {
+  id: string;
+  task_id: string;
+  status: string;
+  started_at: string;
+  finished_at: string;
+  log_path: string;
+}
+
+export interface ScheduledTaskLogItem {
+  execution_id: string;
+  log_path: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class ApiService {
   private baseUrl = 'http://localhost:8000';
@@ -72,5 +97,48 @@ export class ApiService {
 
   listTransactions(): Observable<{ transactions: Transaction[] }> {
     return this.http.get<{ transactions: Transaction[] }>(`${this.baseUrl}/transactions`);
+  }
+
+  listScheduledTasks(): Observable<{ tasks: ScheduledTask[] }> {
+    return this.http.get<{ tasks: ScheduledTask[] }>(`${this.baseUrl}/scheduled-tasks`);
+  }
+
+  getScheduledTask(taskId: string): Observable<ScheduledTask> {
+    return this.http.get<ScheduledTask>(`${this.baseUrl}/scheduled-tasks/${taskId}`);
+  }
+
+  createScheduledTask(payload: Omit<ScheduledTask, 'id' | 'created_at' | 'updated_at' | 'last_run'>): Observable<ScheduledTask> {
+    return this.http.post<ScheduledTask>(`${this.baseUrl}/scheduled-tasks`, payload);
+  }
+
+  updateScheduledTask(
+    taskId: string,
+    payload: Omit<ScheduledTask, 'id' | 'created_at' | 'updated_at' | 'last_run'>
+  ): Observable<ScheduledTask> {
+    return this.http.put<ScheduledTask>(`${this.baseUrl}/scheduled-tasks/${taskId}`, payload);
+  }
+
+  deleteScheduledTask(taskId: string): Observable<{ status: string }> {
+    return this.http.delete<{ status: string }>(`${this.baseUrl}/scheduled-tasks/${taskId}`);
+  }
+
+  listTaskExecutions(taskId: string): Observable<{ executions: ScheduledTaskExecution[] }> {
+    return this.http.get<{ executions: ScheduledTaskExecution[] }>(
+      `${this.baseUrl}/scheduled-tasks/${taskId}/executions`
+    );
+  }
+
+  listTaskLogs(taskId: string): Observable<{ logs: ScheduledTaskLogItem[] }> {
+    return this.http.get<{ logs: ScheduledTaskLogItem[] }>(`${this.baseUrl}/scheduled-tasks/${taskId}/logs`);
+  }
+
+  getTaskExecutionLog(taskId: string, executionId: string): Observable<string> {
+    return this.http.get(`${this.baseUrl}/scheduled-tasks/${taskId}/executions/${executionId}/log`, {
+      responseType: 'text',
+    });
+  }
+
+  runScheduledTask(taskId: string): Observable<ScheduledTaskExecution> {
+    return this.http.post<ScheduledTaskExecution>(`${this.baseUrl}/scheduled-tasks/${taskId}/run`, {});
   }
 }

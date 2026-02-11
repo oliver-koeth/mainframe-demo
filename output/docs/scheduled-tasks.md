@@ -1,36 +1,29 @@
-# BANKACCT Backend
+# Scheduled Tasks
 
-## Setup
+## API Endpoints
 
-```bash
-poetry install
-```
-
-## Run
-
-```bash
-poetry run uvicorn app.main:app --reload --port 8000
-```
-
-## Scheduled Tasks
-
-The API ships with a default heartbeat task that runs every 5 minutes and writes logs to
-`output/backend/logs/<task-id>/<execution-id>.log`.
-
-Endpoints:
+Tasks
 - `GET /scheduled-tasks`
 - `POST /scheduled-tasks`
 - `GET /scheduled-tasks/{id}`
 - `PUT /scheduled-tasks/{id}`
 - `DELETE /scheduled-tasks/{id}`
 - `POST /scheduled-tasks/{id}/run`
+
+Executions
 - `GET /scheduled-tasks/{id}/executions`
 - `GET /scheduled-tasks/{id}/executions/{execution_id}`
 - `GET /scheduled-tasks/{id}/executions/{execution_id}/log`
 - `GET /scheduled-tasks/{id}/logs`
 
-## Tests
+## UI Route
 
-```bash
-poetry run pytest
-```
+- `/scheduled-tasks`
+
+## Logs
+
+Execution logs are written to `output/backend/logs/<task-id>/<execution-id>.log`.
+
+## Default Task
+
+A default `heartbeat` task runs every 5 minutes and writes “Hello Heartbeat” to the log.

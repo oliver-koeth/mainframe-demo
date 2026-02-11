@@ -18,3 +18,12 @@
 | --- | --- | --- | --- |
 | `CUSTOMERS.DAT` | `/accounts` | `accounts[]` | Fixed-width parsing; duplicate IDs overwrite existing records |
 | `TRANSACTIONS.DAT` | `/transactions` | `transactions[]` | Unknown types ignored during seed import |
+
+## Scheduled Tasks
+
+| Feature | REST Endpoint(s) | UI Route |
+| --- | --- | --- |
+| Scheduled tasks management | `GET/POST/PUT/DELETE /scheduled-tasks` | `/scheduled-tasks` |
+| Task executions | `GET /scheduled-tasks/{id}/executions` | `/scheduled-tasks` |
+| Execution logs | `GET /scheduled-tasks/{id}/executions/{execution_id}/log` | `/scheduled-tasks` |
+| Task log files | `GET /scheduled-tasks/{id}/logs` | `/scheduled-tasks` |

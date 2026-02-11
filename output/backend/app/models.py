@@ -125,3 +125,57 @@ class ApplyInterestBatchResult(BaseModel):
     applied_count: int
     total_interest: Decimal
     results: list[ApplyInterestResult]
+
+
+class ScheduledTaskBase(BaseModel):
+    model_config = BASE_CONFIG
+
+    display_name: str = Field(min_length=1, max_length=60)
+    function_name: str = Field(min_length=1, max_length=60)
+    cron: str = Field(min_length=1, max_length=60)
+    enabled: bool
+
+
+class ScheduledTaskCreate(ScheduledTaskBase):
+    task_id: Optional[str] = None
+
+
+class ScheduledTaskUpdate(ScheduledTaskBase):
+    pass
+
+
+class ScheduledTask(ScheduledTaskBase):
+    id: str
+    created_at: str
+    updated_at: str
+    last_run: Optional[str] = None
+
+
+class ScheduledTaskExecution(BaseModel):
+    model_config = BASE_CONFIG
+
+    id: str
+    task_id: str
+    status: str
+    started_at: str
+    finished_at: str
+    log_path: str
+
+
+class ScheduledTasksResponse(BaseModel):
+    tasks: list[ScheduledTask]
+
+
+class ScheduledTaskExecutionsResponse(BaseModel):
+    executions: list[ScheduledTaskExecution]
+
+
+class ScheduledTaskLogItem(BaseModel):
+    model_config = BASE_CONFIG
+
+    execution_id: str
+    log_path: str
+
+
+class ScheduledTaskLogsResponse(BaseModel):
+    logs: list[ScheduledTaskLogItem]

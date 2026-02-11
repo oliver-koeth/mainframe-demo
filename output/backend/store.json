@@ -31,7 +31,45 @@
       "name": "Sam"
     }
   ],
+  "scheduled_tasks": [
+    {
+      "created_at": "2026-02-11T14:44:56",
+      "cron": "*/5 * * * *",
+      "display_name": "Heartbeat",
+      "enabled": true,
+      "function_name": "heartbeat",
+      "id": "a97907d8-c750-41e0-8f6a-9c8815bf38c3",
+      "last_run": "2026-02-11T15:00:00",
+      "updated_at": "2026-02-11T14:46:54"
+    }
+  ],
   "schema_version": 1,
+  "task_executions": [
+    {
+      "finished_at": "2026-02-11T14:45:00",
+      "id": "c1ab0551-eaa3-4d74-85de-cd8636e4f257",
+      "log_path": "/Users/oliver.koeth/work/mainframe-demo/output/backend/logs/a97907d8-c750-41e0-8f6a-9c8815bf38c3/c1ab0551-eaa3-4d74-85de-cd8636e4f257.log",
+      "started_at": "2026-02-11T14:45:00",
+      "status": "success",
+      "task_id": "a97907d8-c750-41e0-8f6a-9c8815bf38c3"
+    },
+    {
+      "finished_at": "2026-02-11T14:57:46",
+      "id": "f88a64ab-cadd-44cc-b79d-073cabe9d916",
+      "log_path": "/Users/oliver.koeth/work/mainframe-demo/output/backend/logs/a97907d8-c750-41e0-8f6a-9c8815bf38c3/f88a64ab-cadd-44cc-b79d-073cabe9d916.log",
+      "started_at": "2026-02-11T14:57:46",
+      "status": "success",
+      "task_id": "a97907d8-c750-41e0-8f6a-9c8815bf38c3"
+    },
+    {
+      "finished_at": "2026-02-11T15:00:00",
+      "id": "10d476e8-643e-4e4e-8891-f081a3d50845",
+      "log_path": "/Users/oliver.koeth/work/mainframe-demo/output/backend/logs/a97907d8-c750-41e0-8f6a-9c8815bf38c3/10d476e8-643e-4e4e-8891-f081a3d50845.log",
+      "started_at": "2026-02-11T15:00:00",
+      "status": "success",
+      "task_id": "a97907d8-c750-41e0-8f6a-9c8815bf38c3"
+    }
+  ],
   "transactions": [
     {
       "account_id": "345akeem55",

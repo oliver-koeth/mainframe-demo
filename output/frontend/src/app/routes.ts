@@ -6,6 +6,7 @@ import { AccountFormComponent } from './account-form.component';
 import { AccountDetailComponent } from './account-detail.component';
 import { TransactionListComponent } from './transaction-list.component';
 import { InterestComponent } from './interest.component';
+import { ScheduledTasksComponent } from './scheduled-tasks.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
@@ -15,4 +16,5 @@ export const routes: Routes = [
   { path: 'accounts/:id', component: AccountDetailComponent },
   { path: 'transactions', component: TransactionListComponent },
   { path: 'interest', component: InterestComponent },
+  { path: 'scheduled-tasks', component: ScheduledTasksComponent },
 ];
