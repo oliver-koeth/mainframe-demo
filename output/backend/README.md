@@ -16,6 +16,8 @@ poetry run uvicorn app.main:app --reload --port 8000
 
 The API ships with a default heartbeat task that runs every 5 minutes and writes logs to
 `output/backend/logs/<task-id>/<execution-id>.log`.
+You can also create tasks with function `monthend_interest` to run the migrated COBOL month-end
+interest batch flow; its execution log preserves the original console output lines.
 
 Endpoints:
 - `GET /scheduled-tasks`

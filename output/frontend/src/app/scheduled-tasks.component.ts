@@ -23,7 +23,7 @@ const CRON_PATTERN = /^\S+\s+\S+\s+\S+\s+\S+\s+\S+$/;
     <section class="grid">
       <div class="card">
         <h3>Tasks</h3>
-        <table class="table" *ngIf="tasks.length; else emptyState">
+        <table class="table table-stack-actions tasks-table" *ngIf="tasks.length; else emptyState">
           <thead>
             <tr>
               <th>Name</th>
@@ -44,9 +44,11 @@ const CRON_PATTERN = /^\S+\s+\S+\s+\S+\s+\S+\s+\S+$/;
               </td>
               <td>{{ task.cron }}</td>
               <td>{{ task.last_run || '—' }}</td>
-              <td>
-                <button class="secondary" (click)="editTask(task)">Edit</button>
-                <button class="danger" (click)="removeTask(task)">Delete</button>
+              <td class="row-actions">
+                <div class="row-actions-inner">
+                  <button class="secondary" (click)="editTask(task)">Edit</button>
+                  <button class="danger" (click)="removeTask(task)">Delete</button>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -83,46 +85,22 @@ const CRON_PATTERN = /^\S+\s+\S+\s+\S+\s+\S+\s+\S+$/;
             <h4>Cron Wizard</h4>
             <div class="grid">
               <div>
-                <label>Preset</label>
-                <select [(ngModel)]="wizard.type" name="wizardType">
-                  <option value="interval">Every N Minutes</option>
-                  <option value="hourly">Hourly</option>
-                  <option value="daily">Daily</option>
-                  <option value="weekly">Weekly</option>
-                  <option value="monthly">Monthly</option>
-                </select>
-              </div>
-              <div *ngIf="wizard.type === 'interval'">
                 <label>Minutes</label>
-                <input type="number" min="1" max="59" [(ngModel)]="wizard.minutes" name="wizardMinutes" />
-              </div>
-              <div *ngIf="wizard.type === 'hourly'">
-                <label>Minute</label>
-                <input type="number" min="0" max="59" [(ngModel)]="wizard.minute" name="wizardMinuteHourly" />
-              </div>
-              <div *ngIf="wizard.type === 'daily' || wizard.type === 'weekly' || wizard.type === 'monthly'">
-                <label>Hour</label>
-                <input type="number" min="0" max="23" [(ngModel)]="wizard.hour" name="wizardHour" />
-              </div>
-              <div *ngIf="wizard.type === 'daily' || wizard.type === 'weekly' || wizard.type === 'monthly'">
-                <label>Minute</label>
-                <input type="number" min="0" max="59" [(ngModel)]="wizard.minute" name="wizardMinute" />
-              </div>
-              <div *ngIf="wizard.type === 'weekly'">
-                <label>Weekday</label>
-                <select [(ngModel)]="wizard.weekday" name="wizardWeekday">
-                  <option value="MON">Mon</option>
-                  <option value="TUE">Tue</option>
-                  <option value="WED">Wed</option>
-                  <option value="THU">Thu</option>
-                  <option value="FRI">Fri</option>
-                  <option value="SAT">Sat</option>
-                  <option value="SUN">Sun</option>
+                <select [(ngModel)]="wizard.minute" [ngModelOptions]="{ standalone: true }" name="wizardMinute">
+                  <option *ngFor="let option of minuteOptions" [value]="option">{{ option }}</option>
                 </select>
               </div>
-              <div *ngIf="wizard.type === 'monthly'">
-                <label>Day of Month</label>
-                <input type="number" min="1" max="31" [(ngModel)]="wizard.monthDay" name="wizardMonthDay" />
+              <div>
+                <label>Hours</label>
+                <select [(ngModel)]="wizard.hour" [ngModelOptions]="{ standalone: true }" name="wizardHour">
+                  <option *ngFor="let option of hourOptions" [value]="option">{{ option }}</option>
+                </select>
+              </div>
+              <div>
+                <label>Days</label>
+                <select [(ngModel)]="wizard.day" [ngModelOptions]="{ standalone: true }" name="wizardDay">
+                  <option *ngFor="let option of dayOptions" [value]="option">{{ option }}</option>
+                </select>
               </div>
             </div>
             <button type="button" class="secondary" (click)="applyWizard()">Apply</button>
@@ -143,7 +121,7 @@ const CRON_PATTERN = /^\S+\s+\S+\s+\S+\s+\S+\s+\S+$/;
           </div>
           <button (click)="runNow()">Run Now</button>
         </div>
-        <table class="table" *ngIf="executions.length; else noRuns">
+        <table class="table table-stack-actions executions-table" *ngIf="executions.length; else noRuns">
           <thead>
             <tr>
               <th>Started</th>
@@ -155,8 +133,10 @@ const CRON_PATTERN = /^\S+\s+\S+\s+\S+\s+\S+\s+\S+$/;
             <tr *ngFor="let execution of executions">
               <td>{{ execution.started_at }}</td>
               <td>{{ execution.status }}</td>
-              <td>
-                <button class="secondary" (click)="loadLog(execution)">View Log</button>
+              <td class="row-actions">
+                <div class="row-actions-inner">
+                  <button class="secondary" (click)="loadLog(execution)">View Log</button>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -194,13 +174,14 @@ export class ScheduledTasksComponent implements OnInit {
   error = '';
 
   wizard = {
-    type: 'interval',
-    minutes: 5,
-    minute: 0,
-    hour: 9,
-    weekday: 'MON',
-    monthDay: 1,
+    minute: '*',
+    hour: '*',
+    day: '*',
   };
+
+  minuteOptions = ['*', ...Array.from({ length: 60 }, (_, idx) => String(idx))];
+  hourOptions = ['*', ...Array.from({ length: 24 }, (_, idx) => String(idx))];
+  dayOptions = ['*', ...Array.from({ length: 31 }, (_, idx) => String(idx + 1))];
 
   form = this.fb.group({
     display_name: ['', Validators.required],
@@ -353,27 +334,7 @@ export class ScheduledTasksComponent implements OnInit {
   }
 
   applyWizard(): void {
-    let cron = '';
-    if (this.wizard.type === 'interval') {
-      const minutes = Math.max(1, Math.min(59, Number(this.wizard.minutes) || 1));
-      cron = `*/${minutes} * * * *`;
-    } else if (this.wizard.type === 'hourly') {
-      const minute = Math.max(0, Math.min(59, Number(this.wizard.minute) || 0));
-      cron = `${minute} * * * *`;
-    } else if (this.wizard.type === 'daily') {
-      const minute = Math.max(0, Math.min(59, Number(this.wizard.minute) || 0));
-      const hour = Math.max(0, Math.min(23, Number(this.wizard.hour) || 0));
-      cron = `${minute} ${hour} * * *`;
-    } else if (this.wizard.type === 'weekly') {
-      const minute = Math.max(0, Math.min(59, Number(this.wizard.minute) || 0));
-      const hour = Math.max(0, Math.min(23, Number(this.wizard.hour) || 0));
-      cron = `${minute} ${hour} * * ${this.wizard.weekday}`;
-    } else if (this.wizard.type === 'monthly') {
-      const minute = Math.max(0, Math.min(59, Number(this.wizard.minute) || 0));
-      const hour = Math.max(0, Math.min(23, Number(this.wizard.hour) || 0));
-      const day = Math.max(1, Math.min(31, Number(this.wizard.monthDay) || 1));
-      cron = `${minute} ${hour} ${day} * *`;
-    }
+    const cron = `${this.wizard.minute} ${this.wizard.hour} ${this.wizard.day} * *`;
     this.form.patchValue({ cron });
   }
 }

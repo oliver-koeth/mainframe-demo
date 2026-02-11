@@ -178,6 +178,25 @@ button.secondary {
   border-bottom: 1px solid #efe5db;
 }
 
+.table-stack-actions .row-actions {
+  width: 1%;
+}
+
+.table-stack-actions .row-actions-inner {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  flex-wrap: nowrap;
+}
+
+.table-stack-actions .row-actions-inner .danger {
+  margin-left: 0;
+}
+
+.table-stack-actions .row-actions-inner button {
+  white-space: nowrap;
+}
+
 .badge {
   display: inline-block;
   padding: 0.2rem 0.6rem;
@@ -196,5 +215,46 @@ button.secondary {
   .toolbar {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+@media (max-width: 1500px) {
+  .table-stack-actions.tasks-table thead tr {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 0.8fr) minmax(0, 1fr) minmax(0, 1.4fr);
+  }
+
+  .table-stack-actions.executions-table thead tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
+  }
+
+  .table-stack-actions thead tr th:last-child {
+    display: none;
+  }
+
+  .table-stack-actions.tasks-table tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 0.8fr) minmax(0, 1fr) minmax(0, 1.4fr);
+  }
+
+  .table-stack-actions.executions-table tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
+  }
+
+  .table-stack-actions tbody tr .row-actions {
+    grid-column: 1 / -1;
+    border-bottom: 1px solid #efe5db;
+    padding-top: 0;
+    padding-bottom: 0.7rem;
+  }
+
+  .table-stack-actions tbody tr td {
+    border-bottom: none;
+  }
+
+  .table-stack-actions tbody tr .row-actions-inner {
+    justify-content: flex-start;
   }
 }

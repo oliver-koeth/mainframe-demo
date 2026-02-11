@@ -10,8 +10,10 @@ from apscheduler.triggers.cron import CronTrigger
 from apscheduler.jobstores.base import JobLookupError
 
 from .models import ScheduledTask, ScheduledTaskCreate, ScheduledTaskExecution, ScheduledTaskUpdate
-from .services import DomainError
+from .services import DomainError, apply_interest_all
 from .storage import Storage
+
+
 def now_iso() -> str:
     return datetime.now().isoformat(timespec="seconds")
 
@@ -165,6 +167,18 @@ class ScheduledTaskManager:
             replace_existing=True,
         )
 
+    @staticmethod
+    def _emit_log(log_lines: list[str], message: str) -> None:
+        print(message)
+        log_lines.append(message)
+
+    def _run_monthend_interest(self, log_lines: list[str]) -> None:
+        self._emit_log(log_lines, "MONTHEND INTEREST BATCH START")
+        self._emit_log(log_lines, "Applying 2% annual interest to all savings accounts...")
+        result = apply_interest_all(self.storage)
+        self._emit_log(log_lines, f"Interest applied to {result.applied_count} savings accounts.")
+        self._emit_log(log_lines, "MONTHEND INTEREST BATCH COMPLETE")
+
     def run_task(self, task_id: str) -> Optional[ScheduledTaskExecution]:
         task = self.storage.get_scheduled_task(task_id)
         if not task or not task.enabled:
@@ -178,9 +192,9 @@ class ScheduledTaskManager:
         log_lines: list[str] = []
         try:
             if task.function_name == "heartbeat":
-                message = "Hello Heartbeat"
-                print(message)
-                log_lines.append(message)
+                self._emit_log(log_lines, "Hello Heartbeat")
+            elif task.function_name == "monthend_interest":
+                self._run_monthend_interest(log_lines)
             else:
                 raise RuntimeError(f"Unknown function {task.function_name}")
         except Exception as exc:  # pragma: no cover - defensive
