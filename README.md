@@ -40,6 +40,12 @@ mkdir -p ~/.codex/skills
 cp -R ~/work/mainframe-demo/skills/cobol-flatfile-online-to-angular-python-json ~/.codex/skills/
 ```
 
+Later, to uninstall run:
+
+```bash
+rm -rf ~/.codex/skills/cobol-flatfile-online-to-angular-python-json
+```
+
 ### 3) Restart Codex
 
 Restart Codex so it can pick up the newly installed skill.
