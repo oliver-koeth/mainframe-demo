@@ -55,6 +55,89 @@ main {
   gap: 1.5rem;
 }
 
+.stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.small {
+  font-size: 0.85rem;
+}
+
+.tag {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: #efe5db;
+  font-size: 0.8rem;
+}
+
+.tag.on {
+  background: #d3efe6;
+}
+
+.link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--accent);
+}
+
+.danger {
+  background: #a33;
+  color: white;
+  margin-left: 0.4rem;
+}
+
+.actions {
+  margin-top: 0.5rem;
+}
+
+.error {
+  color: #a33;
+  margin-top: 0.4rem;
+}
+
+.wizard {
+  border-top: 1px solid #efe5db;
+  padding-top: 1rem;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.log-viewer {
+  background: #0b0b0b;
+  color: #e9f4ee;
+  padding: 1rem;
+  border-radius: 12px;
+  max-height: 260px;
+  overflow: auto;
+}
+
+.plain-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
 label {
   font-size: 0.9rem;
   color: var(--muted);
@@ -95,6 +178,25 @@ button.secondary {
   border-bottom: 1px solid #efe5db;
 }
 
+.table-stack-actions .row-actions {
+  width: 1%;
+}
+
+.table-stack-actions .row-actions-inner {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  flex-wrap: nowrap;
+}
+
+.table-stack-actions .row-actions-inner .danger {
+  margin-left: 0;
+}
+
+.table-stack-actions .row-actions-inner button {
+  white-space: nowrap;
+}
+
 .badge {
   display: inline-block;
   padding: 0.2rem 0.6rem;
@@ -108,5 +210,51 @@ button.secondary {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.8rem;
+  }
+
+  .toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 1500px) {
+  .table-stack-actions.tasks-table thead tr {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 0.8fr) minmax(0, 1fr) minmax(0, 1.4fr);
+  }
+
+  .table-stack-actions.executions-table thead tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
+  }
+
+  .table-stack-actions thead tr th:last-child {
+    display: none;
+  }
+
+  .table-stack-actions.tasks-table tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 0.8fr) minmax(0, 1fr) minmax(0, 1.4fr);
+  }
+
+  .table-stack-actions.executions-table tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
+  }
+
+  .table-stack-actions tbody tr .row-actions {
+    grid-column: 1 / -1;
+    border-bottom: 1px solid #efe5db;
+    padding-top: 0;
+    padding-bottom: 0.7rem;
+  }
+
+  .table-stack-actions tbody tr td {
+    border-bottom: none;
+  }
+
+  .table-stack-actions tbody tr .row-actions-inner {
+    justify-content: flex-start;
   }
 }

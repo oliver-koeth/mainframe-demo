@@ -14,6 +14,11 @@ npm install --include=dev
 npm start
 ```
 
+## Scheduled Tasks
+
+Use the `Scheduled Tasks` navigation entry (`/scheduled-tasks`) to create cron-based jobs, run them on demand,
+and view execution logs.
+
 ## Tests
 
 ```bash
